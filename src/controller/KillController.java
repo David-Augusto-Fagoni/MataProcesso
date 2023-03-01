@@ -51,6 +51,10 @@ public class KillController
 				buffer.append("cmd /c ");
 				buffer.append(processo);
 			}
+			else
+			{
+			e.printStackTrace();
+			}
 		}
 	}
 	
@@ -70,11 +74,78 @@ public class KillController
 	
 		try 
 		{
-			Runtime.getRuntime().exec(processo);
-			System.out.println("Processo encerrado");
+			Process p = Runtime.getRuntime().exec(processo);
+			InputStream fluxo = p.getInputStream();
+			InputStreamReader leitor = new InputStreamReader(fluxo);
+			BufferedReader buffer = new BufferedReader(leitor);
+			String linha = buffer.readLine();
+			if (linha == null)
+			{
+				System.out.println("PID não encontrado");
+			}
+			else
+			{
+				System.out.println("PID encontrado e eliminado");
+			}
+
 		} 
 		catch (IOException e) {
+			String MsgErro = e.getMessage();
+			if(MsgErro.contains("740"))
+			{
+				StringBuffer buffer = new StringBuffer();
+				buffer.append("cmd /c ");
+				buffer.append(processo);
+			}
+			else
+			{
 			e.printStackTrace();
+			}
 		}
 	}
+	
+	public void mataNome (String os)
+	{
+		String processo;
+		if (os.contains("Linux"))
+		{
+			processo = ("pkill -f ");
+		}
+		else
+		{
+			processo = ("TASKKILL /IM ");
+		}
+		processo = (processo +(JOptionPane.showInputDialog("Digite o nome do programa")));
+		
+	
+		try 
+		{
+			Process p = Runtime.getRuntime().exec(processo);
+			InputStream fluxo = p.getInputStream();
+			InputStreamReader leitor = new InputStreamReader(fluxo);
+			BufferedReader buffer = new BufferedReader(leitor);
+			String linha = buffer.readLine();
+			if (linha == null)
+			{
+				System.out.println("Programa não encontrado");
+			}
+			else
+			{
+				System.out.println("Programa encontrado e eliminado");
+			}
+		} 
+		catch (IOException e) {
+			String MsgErro = e.getMessage();
+			if(MsgErro.contains("740"))
+			{
+				StringBuffer buffer = new StringBuffer();
+				buffer.append("cmd /c ");
+				buffer.append(processo);
+			}
+			else
+			{
+				e.printStackTrace();
+			}
+		}
+	}	
 }

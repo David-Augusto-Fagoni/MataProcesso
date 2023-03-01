@@ -17,7 +17,9 @@ public class Main {
 			{
 			case 1 -> KC.listaProcessos(os);
 			case 2 -> KC.mataPid(os);
+			case 3 -> KC.mataNome(os);
 			case 4 -> JOptionPane.showMessageDialog(null, "Saindo");
+			default -> JOptionPane.showMessageDialog(null, "Numero invalido");
 			}
 		}
 	}
