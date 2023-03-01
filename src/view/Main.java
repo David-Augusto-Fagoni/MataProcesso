@@ -16,6 +16,7 @@ public class Main {
 			switch (J)
 			{
 			case 1 -> KC.listaProcessos(os);
+			case 2 -> KC.mataPid(os);
 			case 4 -> JOptionPane.showMessageDialog(null, "Saindo");
 			}
 		}

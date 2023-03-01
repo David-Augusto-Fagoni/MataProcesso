@@ -5,6 +5,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import javax.swing.JOptionPane;
 
 public class KillController 
 {
@@ -50,6 +51,30 @@ public class KillController
 				buffer.append("cmd /c ");
 				buffer.append(processo);
 			}
+		}
+	}
+	
+	public void mataPid (String os)
+	{
+		String processo;
+		if (os.contains("Linux"))
+		{
+			processo = ("kill -9 ");
+		}
+		else
+		{
+			processo = ("TASKKILL /PID ");
+		}
+		processo = (processo +(JOptionPane.showInputDialog("Digite o PID do programa")));
+		
+	
+		try 
+		{
+			Runtime.getRuntime().exec(processo);
+			System.out.println("Processo encerrado");
+		} 
+		catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
 }
